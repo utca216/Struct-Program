@@ -30,7 +30,9 @@ struct Date{
         int dayb;
         int diff=abs(2024-year);
         if(year>=2024){
-            dayb=1+diff/4;
+            dayb=diff/4;
+            if(dayb>0)
+                dayb++;
             if(year%4==0&&month!=1)
                 dayb+=dayvs[month-2];
             if(year%4!=0&&month!=1)
@@ -46,6 +48,7 @@ struct Date{
             if(year%4!=0&&month!=1)
                 dayb-=daynvs[month-2];
             dayb-=day;
+            dayb=diff*365;
             dayb=dayb*-1;
             while(dayb<0)
                 dayb+=7;
@@ -107,40 +110,40 @@ struct Date{
     void printDate(){
         switch(month){
         case 1:
-            cout<<"January "<<day<<", "<<year;
+            cout<<"January "<<day<<", "<<year<<endl;
             break;
         case 2:
-            cout<<"Febrary "<<day<<", "<<year;
+            cout<<"Febrary "<<day<<", "<<year<<endl;
             break;
         case 3:
-            cout<<"March "<<day<<", "<<year;
+            cout<<"March "<<day<<", "<<year<<endl;
             break;
         case 4:
-            cout<<"April "<<day<<", "<<year;
+            cout<<"April "<<day<<", "<<year<<endl;
             break;
         case 5:
-            cout<<"May "<<day<<", "<<year;
+            cout<<"May "<<day<<", "<<year<<endl;
             break;
         case 6:
-            cout<<"June "<<day<<", "<<year;
+            cout<<"June "<<day<<", "<<year<<endl;
             break;
         case 7:
-            cout<<"July "<<day<<", "<<year;
+            cout<<"July "<<day<<", "<<year<<endl;
             break;
         case 8:
-            cout<<"August "<<day<<", "<<year;
+            cout<<"August "<<day<<", "<<year<<endl;
             break;
         case 9:
-            cout<<"September "<<day<<", "<<year;
+            cout<<"September "<<day<<", "<<year<<endl;
             break;
         case 10:
-            cout<<"October "<<day<<", "<<year;
+            cout<<"October "<<day<<", "<<year<<endl;
             break;
         case 11:
-            cout<<"November "<<day<<", "<<year;
+            cout<<"November "<<day<<", "<<year<<endl;
             break;
         case 12:
-            cout<<"December "<<day<<", "<<year;
+            cout<<"December "<<day<<", "<<year<<endl;
             break;
         }    
     }
@@ -183,11 +186,31 @@ int main()
 {
     Date BirthDate;
     Date Fs;
-    BirthDate.newDate(20,12,2005);
-    Fs.newDate(30,12,2005);
+    vector<Date> dates;
+    int n, day, month, year;
+    cin>>n;
+    for(int i=0; i<n; i++)
+    {
+        cin>>day>>month>>year;
+        dates.push_back({day,month,year});
+    }
+    
+    sort(dates.begin(), dates.end());
+    
+    for(int i=0; i<n; i++)
+    {
+        dates[i].printDate();
+        cout<<dates[i].getDayOfWeek()<<endl;
+        if(i!=0)
+        cout<<dates[i].calculateDifference(dates[i-1].day, dates[i-1].month, dates[i-1].year)<<" days between"<<endl;
+        
+        cout<<endl;
+    }
+    //BirthDate.newDate(20,12,2005);
+    //Fs.newDate(30,12,2005);
     //cout<<BirthDate.calculateDifference(11,04,2001);
     //BirthDate.printDate();
-    bool aboba=BirthDate>Fs;
-    cout<<aboba;
+    //bool aboba=BirthDate>Fs;
+    //cout<<aboba;
     return 0;
 }
