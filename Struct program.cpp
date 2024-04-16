@@ -24,6 +24,18 @@ struct Date{
         day=a;
         month=b;
         year=c;
+        if(day>0&&day<31&&month>0&&month<12){
+            if(year%4==0){
+                if(month==2&&day>29)
+                    cout<<"error!";
+            }
+            else
+                if(month==2&&day>28)
+                    cout<<"error!";
+        cout<<"succesful!";    
+        }
+        else
+        cout<<"error!";
     };
     
     string getDayOfWeek(){
@@ -48,7 +60,7 @@ struct Date{
             if(year%4!=0&&month!=1)
                 dayb-=daynvs[month-2];
             dayb-=day;
-            dayb=diff*365;
+            dayb+=diff*365;
             dayb=dayb*-1;
             while(dayb<0)
                 dayb+=7;
@@ -192,9 +204,25 @@ int main()
     for(int i=0; i<n; i++)
     {
         cin>>day>>month>>year;
-        dates.push_back({day,month,year});
+        if(day>0&&day<31&&month>0&&month<12){
+            if(year%4==0){
+                if(month==2&&day>29){
+                    cout<<"error!";
+                    break;
+                }
+            else
+                if(month==2&&day>28){
+                    cout<<"error!";
+                    break;
+                }
+        }
+        dates.push_back({day,month,year});    
+        cout<<"succesful!"<<endl;
+        }    
+        else
+            cout<<"error!";
+        
     }
-    
     sort(dates.begin(), dates.end());
     
     for(int i=0; i<n; i++)
